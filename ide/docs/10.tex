@@ -1,0 +1,169 @@
+\documentclass[journal,10pt, a4paper,twocolumn]{article}
+
+\usepackage[top=0.95in, bottom=1in, left=0.95in, right=0.95in]{geometry}
+\usepackage{array}
+\usepackage[colorlinks,linkcolor={black},citecolor={blue!80!black},urlcolor={blue!80!black}]{hyperref}
+\usepackage[parfill]{parskip}
+%% Arial-like font
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault}
+\setlength{\columnsep}{40pt}
+%Napier logo top right
+\usepackage{watermark}
+%Lorem Ipusm dolor please don't leave any in you final report ;)
+\usepackage{circuitikz}
+\usetikzlibrary{circuits.logic.IEC,calc}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usetikzlibrary{shapes, arrows, chains, decorations.markings,intersections,calc}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{listings}
+%give us the Capital H that we all know and love
+\usepackage{float}
+%tone down the line spacing after section titles
+\usepackage{titlesec}
+%Cool maths printing
+\usepackage{amsmath}
+\usepackage{tabularx}
+%PseudoCode
+\usepackage{algorithm2e}
+\usepackage{karnaugh-map}
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+
+\begin{document}
+\title{IDE ASSIGNMENT}
+\author{Tanyala Srihitha\\srihithatanyala@gmail.com}
+\maketitle
+\tableofcontents 
+
+\section{Problem}                               
+(GATE EC-2020)\\                                  
+Q.No 10    The figure below shows a multiplexer where $S_1$ and $S_0$ are select lines, $I_0$ to $I_3$ are the input data lines, EN is the enable line, and $F(P,Q,R)$ is the output, $F$ is
+\begin{center}
+\begin{circuitikz}
+\node [muxdemux, muxdemux def={NL=5, NR=1, NB=2,w=4, Lh=4, Rh=4, square pins=1}](C) at (0,0){MUX};
+\node [right, font=\tiny] at (C.blpin 1){EN};  
+\node [right, font=\tiny] at (C.blpin 2){$I_0$};
+\node [right, font=\tiny] at (C.blpin 3){$I_1$};
+\node [right, font=\tiny] at (C.blpin 4){$I_2$};
+\node [right, font=\tiny] at (C.blpin 5){$I_3$};
+\node [right=3mm, font=\tiny] at (C.brpin 1){F};
+\node [above, font=\tiny] at (C.bbpin 1){$S_1$};
+\node [above, font=\tiny] at (C.bbpin 2){$S_0$};
+\node [left=3mm, font=\tiny] at (C.blpin 1){0}; 
+\node [left=3mm, font=\tiny] at (C.blpin 2){R};
+\node [left=3mm, font=\tiny] at (C.blpin 3){0}; 
+\node [left=3mm, font=\tiny] at (C.blpin 4){R}; 
+\node [left=3mm, font=\tiny] at (C.blpin 5){1};
+\node [below=3mm, font=\tiny] at (C.bbpin 1){P};
+\node [below=3mm, font=\tiny] at (C.bbpin 2){Q};
+\node [ocirc, anchor=0](notin2) at (C.blpin 1){};
+%\draw (notin2.180) -- (C.bpin 1 -| extpin);
+\end{circuitikz}
+\end{center}
+\begin{center}
+Fig 1
+\end{center}
+\begin{enumerate}
+        \item $PQ + \overline{Q} R$
+        \item $P+Q \overline{R}$
+        \item $P \overline{Q} R+\overline{P}Q$           \item $\overline{Q} +PR$
+\end{enumerate}
+
+\section{Components}
+\begin{tabularx}{0.45\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+\hline
+\textbf{Component} & \textbf{Value} & \textbf{Quantity}\\
+\hline
+	Arduino UNO & - & 1\\
+\hline
+	Breadboard & - & 1\\
+\hline
+        7447 IC & - & 1\\
+\hline 
+	Seven segment display & - & 1\\
+\hline
+        Resistor & 200ohms & 1\\
+\hline 
+	Jumper wires & M-M & 20\\
+\hline
+\end{tabularx}
+\begin{center}                                    
+TABLE 1
+\end{center}
+\subsection{Arduino}
+The Arduino Uno has some ground pins, analog input pins A0-A3 and digital pins D1-D13 that can be used for both input as well as output. It also has two power pins that can generate 3.3V and 5V.
+\subsection{Seven Segment Display}
+The seven segment display has eight pins, a, b, c, d, e, f, g and dot that take an active LOW input, i.e. the LED will glow only if the input is connected to ground. Each of these pins is connected to an LED segment. The dot pin is reserved for the · LED.
+
+\section{Implementation}
+\begin{spacing}{1.5}
+We know that output of a mux is given as:\\
+$F=\overline{S_1}$ $\overline{S_0}I_0+\overline{S_1}S_0I_1+S_1\overline{S0}I_2+S_1S_0I_3$\\
+By subsituting the values from the figure,\\
+$F=\overline{P}$ $\overline{Q}(R)+\overline{P}Q(0)+P\overline{Q}(R)+PQ(1)$\\
+$F=\overline{P}$ $\overline{Q}R+P\overline{Q}R+PQ$
+\end{spacing}
+
+\section{Truth Table}                       
+\begin{center}                               
+\begin{tabularx}{0.35\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+\hline                                      
+\textbf{P}&\textbf{Q}&\textbf{R}&\textbf{F}\\ 
+\hline                                      
+0 & 0 & 0 & 0 \\               
+\hline                                      
+0 & 0 & 1 & 1 \\               
+\hline                                      
+0 & 1 & 0 & 0 \\               
+\hline                                      
+0 & 1 & 1 & 0 \\               
+\hline
+1 & 0 & 0 & 0 \\         
+\hline
+1 & 0 & 1 & 1 \\         
+\hline                                      
+1 & 1 & 0 & 1 \\              
+\hline                                      
+1 & 1 & 1 & 1 \\               
+\hline                                      
+\end{tabularx}                                
+\end{center}                                 
+\begin{center}                               
+TABLE 2                                      
+\end{center}
+
+\section{K-map}
+From the above truth table, K-map is drawn as follows:
+\begin{center}
+\begin{karnaugh-map}[4][2][1][$QR$][$P$]
+	\maxterms{0,2,3,4}
+	\minterms{1,5,6,7}
+
+	\implicant{1}{5}
+	\implicant{7}{6}
+\end{karnaugh-map}
+\end{center}
+\begin{center}                                     
+Fig 2                                          
+\end{center}
+\section{Boolean Expression}
+By Solving the above K-map, we get a boolean equation as: $F=PQ+\overline{Q}R$
+
+\section{Hardware}
+\begin{enumerate}
+\item Connect the arduino to computer and upload the code in to the arduino.
+\item Make 2,3,4,5 as output pins and 6,7,8 as input pins.
+\item By changing inputs check the corresponding outputs.
+\end{enumerate}
+
+\section{Software}
+\textbf{Download the following code}\\
+\begin{center}
+\fbox{\parbox{8.5cm}{\url{https://github.com/Tanyala-Srihitha/FWC/blob/main/ide/src/10.cpp}}}
+\end{center}
+
+\end{document}
