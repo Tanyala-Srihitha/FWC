@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[top=0.95in, bottom=1in, left=0.95in, right=0.95in]{geometry}
+\usepackage{array}
+\usepackage[colorlinks,linkcolor={black},citecolor={blue!80!black},urlcolor={blue!80!black}]{hyperref}
+\usepackage[parfill]{parskip}
+%% Arial-like font
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault}
+\setlength{\columnsep}{40pt}
+%Napier logo top right
+\usepackage{watermark}
+%Lorem Ipusm dolor please don't leave any in you final report ;)
+\usepackage{circuitikz}
+\usetikzlibrary{circuits.logic.IEC,calc}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usetikzlibrary{shapes, arrows, chains, decorations.markings,intersections,calc}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{listings}
+%give us the Capital H that we all know and love
+\usepackage{float}
+%tone down the line spacing after section titles
+\usepackage{titlesec}
+%Cool maths printing
+\usepackage{amsmath}
+\usepackage{tabularx}
+%PseudoCode
+\usepackage{algorithm2e}
+\usepackage{karnaugh-map}
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\begin{document}
+\begin{karnaugh-map}[4][2][1][$QR$][$P$]
+        \maxterms{0,2,3,4}                                  \minterms{1,5,6,7}                                                                                      \implicant{1}{5}
+        \implicant{7}{6}
+\end{karnaugh-map}
+\end{document}
