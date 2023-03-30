@@ -1,0 +1,133 @@
+\documentclass[journal,twocolumn,10pt, a4paper]{article}
+
+\usepackage[top=0.95in, bottom=1in, left=0.75in, right=0.75in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{circuitikz}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{amsmath}
+
+\usetikzlibrary{shapes,arrows,chains,decorations.markings,intersections,calc}
+\usepackage{lipsum}
+\usetikzlibrary{positioning}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm2e}
+\usepackage{./karnaugh-map}               
+\setlength{\columnsep}{40pt}     
+\usepackage{datetime}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{textgreek}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{calc}                      
+
+\usetikzlibrary{circuits.logic.US}
+\sloppy
+\lstset{
+language=C++,
+basicstyle=\ttfamily\footnotesize,
+breaklines=true,
+frame=lines
+}
+
+
+\begin{document}
+\title{IMPLEMENTATION OF BOOLEAN LOGIC BY USING ARDUINO WITH AVR-GCC}                
+\author{Tanyala Srihitha\\srihithatanyala@gmail.com}
+\maketitle
+\tableofcontents
+
+\section{Problem}
+
+(Gate EC-2021)\\
+Q.31. The propogation delays of the XOR gate, AND gate and multipleer (MUX) in the circuit shown in the figure are 4 ns,2 ns and 1 ns, respectively.\\
+\begin{figure}[!h]
+\begin{center}
+\resizebox{0.75\columnwidth}{!}{
+\input{figs/fig.tex}
+}
+\end{center}
+\caption{Circuit}
+\label{fig:circuit}
+\end{figure}
+If all the inputs P,Q,R,S and T are applied simultaneously and held constant,the maximum propogation delay of the circuit is 
+\begin{enumerate}
+\item 3 ns \item 5 ns \item 6 ns \item 7 ns
+\end{enumerate}
+
+\section{Intoduction}
+In the given circuit,the output of first multiplexercan be considered as the input to the second multiplexr so that the second multiplexer can be analyzed using 7447 IC for the implementation of output(expression) of the second multiplexer.Since the 7447 IC is just a seven segment display decoder, the output expression of the multiplexer can be given to the LSB representing pin(7) of the IC so that the output on the deisplay will represent the required answer (0 or 1) with the inputs of the given circuit (P,Q,R,S,T) being given at random.
+
+\section{Components}
+\begin{table}[!h]
+\centering
+\input{tables/table1.tex}
+\caption{Components}
+\label{table:Components}
+\end{table}
+\subsection{Arduino} 
+The Arduino Uno has some ground pins,analog input pins A0-A3 and digital pins D1-D13 that can be used for both input as well as output.It also has two power pins that can generate 3.3V and 5V.Inthe following exercises, we use digital pins,GND and 5V .
+\subsection{Seven Segment Display}
+The seven segment display has eight pins, \emph{a,b,c,d,e,f,g} and \emph{dot} that take an active LOW input,i.e. the LED will glow only if the input is connected to ground.Each of these pins is connected to an LED segment.The \emph{dot} pin is reserved for the LED.
+
+\section{Hardware}
+\begin{enumerate}
+\item Make connections between the seven segment display and the 7447 IC as shown in Table2.
+
+\begin{table}[!h]                          
+\centering                                 
+\input{tables/table2.tex}                
+\caption{seven segment}                   
+\label{table:Seven Segment}               
+\end{table}
+
+\item Connect Vcc of the IC and COM of the display to 5V and the GND pins of the IC and display to the Ground of arduino.
+
+
+\item Now make the connections as per Table3.
+\begin{table}[!h]                          
+\centering                               
+\input{tables/table3.tex}                 
+\caption{Connections}                       
+\label{table:Connections}                   
+\end{table}
+	
+\item In the truth table in Table4, P,Q,R,S,T are inputs and Y is output.
+\begin{table}[!h]                           
+\centering                                  
+\input{tables/table4.tex}                  
+\caption{Truth Table}                    
+\label{table:Truth Table}                 
+\end{table}
+
+\item The k map for this truth table will be a five variable map.So, two k maps can be drawn with one map having one input variable as zero and the other k map having that input variable as one as shown below.
+
+\begin{figure}[!h]
+\begin{center}
+\resizebox{0.85\columnwidth}{!}{
+\input{figs/kmap.tex}
+}
+\caption{For Y}
+\label{fig:For Y}
+\end{center}
+\end{figure}
+
+\item Since, 7447 is a Seven Segment Display decoder,A represents the LSB and D represents the MSB. So giving the input to A displys either 0 or 1 on the Display.
+\item Since, the output of the mux is either 0 or 1, this output of mux i.e, Y can begiven as input to A of the 7447 IC so that the the output of the mux can be observed directly on the display.
+\item The boolean expression for the output (Y) of the second mux with the inputs (P,Q,R,S,T) will be simplified as
+\begin{align}
+Y &= RS(T^\prime+PQ)
+\end{align}
+\end{enumerate}
+
+\section{Software}
+Now execute the following code and upload in arduino to realize the Boolean logic for A with y being the input to A.\\
+\lstinputlisting{main.c}
+\end{document}
