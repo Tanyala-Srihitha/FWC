@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Problem}{1}{section.1}%
+\contentsline {section}{\numberline {2}Components}{1}{section.2}%
+\contentsline {section}{\numberline {3}Implementation}{1}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Truth Table}{1}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}K-map}{1}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Boolean Expression}{2}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Hardware}{2}{section.4}%
+\contentsline {section}{\numberline {5}Software}{2}{section.5}%
