@@ -1,0 +1,129 @@
+\documentclass[journal,twocolumn,10pt, a4paper]{article}
+
+\usepackage[top=0.95in, bottom=1in, left=0.95in, right=0.95in]{geometry}
+\usepackage{array}
+\usepackage[colorlinks,linkcolor={black},citecolor={blue!80!black},urlcolor={blue!80!black}]{hyperref}
+\usepackage[parfill]{parskip}
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault}
+\setlength{\columnsep}{40pt}
+\usepackage{watermark}
+
+\usepackage{circuitikz}
+\usetikzlibrary{circuits.logic.IEC,calc}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usetikzlibrary{shapes, arrows, chains, decorations.markings,intersections,calc}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{algorithm2e}
+\usepackage{./karnaugh-map}
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{placeins}
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage[none]{hyphenat}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{blindtext}
+\usepackage{capt-of}
+\usepackage{circuitikz}
+\usepackage{./karnaugh-map}
+\usetikzlibrary{shapes.geometric}
+
+\begin{document}
+
+\lstset{ 
+  language=C++,
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=lines}
+
+
+\title{FPGA ASSIGNMENT}
+\author{Tanyala Srihitha\\srihithatanyala@gmail.com}
+\maketitle
+\tableofcontents
+
+\section{Problem}
+(GATE EC-2022)\\
+
+Q.19. Consider the 2-bit multiplexer(MUX) shown in the figure.For output to be the XOR of R and S,the values for $ W,X,Y$ and $Z$ are ?\newline
+\begin{figure}[h]
+\input{figs/fig1.tex}
+\caption{mux}
+\label{fig:1}
+\end{figure}
+\begin{enumerate}
+\item $W = 0, X = 0, Y = 1, Z = 1$
+\item $W = 1, X = 0, Y = 1, Z = 0$
+\item $W = 0, X = 1, Y = 1, Z = 0$
+\item $W = 1, X = 1, Y = 0, Z = 0$
+\end{enumerate}
+
+\section{Introduction}
+	The above diagram is a 4:1 multiplexer where $W, X, Y, Z$ are the inputs of the multiplexer and $A$ is the output of the multiplexer.$R , S$ are the select lines of the multiplexer,which means:\newline
+\begin{enumerate}
+\item For $R = 0,S = 0$,the first input line $W$ is selected.
+\item For $R = 0,S = 1$,the second input line $X$ is selected.
+\item For $R = 1,S = 0$,the third input line $Y$ is selected.
+\item For $R = 1,S = 1$,the fourth input line $Z$ is selected.
+\end{enumerate}
+Therefore,the resultant output expression of the multiplexer is $R'S'W + R'SX + RS'Y + RSZ$.
+
+\section{Components}
+\begin{table}[h]
+\input{tables/table1.tex}
+\caption{contents}
+\label{table 1}
+\end{table}
+
+
+\section{Truth Table}
+\begin{table}[h]
+\begin{center}
+\input{tables/table2.tex}
+\end{center}
+\caption{truth table}
+\label{table 2}
+\end{table}
+\pagebreak
+
+\section{K-map}
+The K-map for this truth table will be a two variable K-map and it will be as follows:
+\begin{figure}[h]
+\input{figs/fig2.tex}
+\caption{k-map}
+\label{fig2}
+\end{figure}
+
+\section{Hardware}                                      
+\begin{enumerate}                                        
+\item Set the GPIO pins: 2,3,4,5,6,7 of Vaman as inputs.
+\item Set the GPIO pin 10,11 of Vaman as output.         
+\item Read the input pins after connecting the Vcc and GND pins.                                                  
+\item Verify the outputs using the truth table.         
+\end{enumerate}
+
+\section{Software}
+The embedded code for the given circuit is \\
+\lstinputlisting{codes/helloworldfpga.v}
+\end{document}
